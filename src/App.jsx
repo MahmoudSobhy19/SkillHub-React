@@ -18,8 +18,6 @@ function App() {
   const authToken = useRecoilValue(authState);
   const [token, setDecodeToken] = useState("");
 
-  console.log(token);
-
   useEffect(() => {
     if (authToken) {
     const decode = decodeToken(authToken);
