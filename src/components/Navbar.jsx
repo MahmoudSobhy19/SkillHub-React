@@ -22,9 +22,9 @@ const Navbar = () => {
   };
 
   return ( 
-    <nav className="bg-gray-600">
-      <div className="container mx-auto px-10 h-12 flex justify-between items-center">
-        <div className="flex items-center">
+    <nav className="bg-gray-600 h-64 md:h-fit">
+      <div className="container mx-auto px-10 h-12 flex flex-col md:flex-row justify-between items-center">
+        <div className="flex items-center flex-col md:flex-row">
           <div className="flex items-center mr-6">
             <h1 className="text-white text-2xl font-bold">
               SkillHub
@@ -33,7 +33,7 @@ const Navbar = () => {
           </div>
 
           <div>
-            <ul className="flex items-center gap-3 text-sm font-bold text-white">
+            <ul className="flex items-center flex-col md:flex-row gap-3 text-sm font-bold text-white">
               <li className="border-green-600 border-b-4 pt-3.5 pb-2.5">Practice</li>
               <li>Contests</li>
               <li>RoadMaps</li>
@@ -42,10 +42,12 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className='flex items-center gap-2 text-white'>
-          <FaUser className='text-xl'/>
-          <div className='text-xs font-semibold'>{token.username}</div>
-          <div className=''> | </div>
+        <div className='flex flex-col md:flex-row items-center gap-2 text-white mt-2'>
+          <div className='flex items-center'>
+            <FaUser className='text-xl mr-2'/>
+            <div className='text-xs font-semibold'>{token.username}</div>
+            <div className='mx-2'> | </div>
+          </div>
           <button 
             className='text-white bg-green-600 px-3 py-[3px] font-bold rounded hover:bg-green-400 focus:outline-none'
             onClick={handleLogout}
