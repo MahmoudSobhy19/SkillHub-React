@@ -28,8 +28,17 @@ const Problems = () => {
     <div className="bg-gray-100 min-h-screen pb-10">
       <Navbar />
       <div className="container mx-auto px-10">
-        <div className="text-gray-600 text-2xl font-bold border-b-4 py-2 my-4 border-green-600 w-fit">
-          Problems
+        <div className="flex justify-between items-center">
+          <div className="text-gray-600 text-2xl font-bold border-b-4 py-2 my-4 border-green-600 w-fit">
+            Problems
+          </div>
+          <a href={`/roadmap/${param.topicId}`}>
+            <button 
+              className="text-green-600 text-xl bg-white border-solid border-2 border-green-600 font-semibold px-8 py-1 mr-8 rounded-sm h-fit hover:text-green-400 hover:border-green-400 focus:outline-none"
+            >
+              RoadMap
+            </button>
+          </a>
         </div>
         <div>
           {problems.length === 0 && (
@@ -52,7 +61,7 @@ const Problems = () => {
                     </div>
                   </div>
                   <div>
-                    <button className="text-green-600 text-sm bg-white border-solid border-[1px] border-green-600 font-simibold px-3 py-1 rounded-sm hover:text-green-400 hover:border-green-400 focus:outline-none ">
+                    <button className="text-green-600 text-sm bg-white border-solid border-[1px] border-green-600 font-semibold px-3 py-1 rounded-sm hover:text-green-400 hover:border-green-400 focus:outline-none ">
                       Solve Challenge
                     </button>
                   </div>

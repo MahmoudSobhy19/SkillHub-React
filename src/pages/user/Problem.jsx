@@ -12,11 +12,14 @@ import { decodeToken } from "react-jwt";
 const Problem = () => {
   const authToken = useRecoilValue(authState);
   const [token, setDecodeToken] = useState("");
+  const [programmingLanguge, setProgrammingLanguge] = useState([]);
+  const [selectedLanguge, setSelectedLanguge] = useState();
+  const [editorLanguge, setEditorLanguge] = useState();
   const param = useParams();
   const [problem, setProblem] = useState([]);
   const [values, setValues] = useState({
     theme: "light",
-    language: "cpp",
+    language: "cpp", // TODO: editorLanguge
   });
   const [defValue, setValue] = useState("// Start coding . . .");
   const editorRef = useRef(null);
@@ -33,7 +36,17 @@ const Problem = () => {
       .get(`/api/v1/problems/${param.problemId}`)
       .then((Response)=>{
         setProblem(Response.data);
-        console.log(Response.data)
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`/api/v1/programming_languges`)
+      .then((Response)=>{
+        setProgrammingLanguge(Response.data);
       })
       .catch((err) => {
         toast.error(err.message);
@@ -42,6 +55,13 @@ const Problem = () => {
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value});
+  };
+
+  const handleChangeLang = (e) => {
+    setSelectedLanguge(e.target.value);
+    // var lang = programmingLanguge.filter(el => el.judge_code == e.target.value);
+    // setEditorLanguge(lang[0].value);
+    // console.log(lang[0].value);
   };
 
   const handleEditorDidMount = (editor, monaco) => {
@@ -57,7 +77,7 @@ const Problem = () => {
       .post('/api/v1/developers/submissions', {
         developer_id: token.id,
         problem_id: param.problemId,
-        programming_language_id: "51",
+        programming_language_id: selectedLanguge,
         source_code: editorRef.current.getValue(),
       })
       .then((Response)=>{
@@ -67,8 +87,6 @@ const Problem = () => {
       .catch((err) => {
         toast.error(err.message);
       });
-
-    console.log(values.language)
   };
 
   return ( 
@@ -119,19 +137,22 @@ const Problem = () => {
                   <select
                     className='text-gray-600 font-semibold text-xs border-2 border-green-600 rounded w-fit my-2 px-2 py-1 outline-none'
                     name="language"
-                    value={values.language}
+                    // value={values.language}
                     required
-                    onChange={handleChange}
+                    onChange={handleChangeLang}
                   >
-                    <option value="" defaultValue>
-                      Language
-                    </option>
-                    <option value="c">C</option>
-                    <option value="cpp">C++</option>
-                    <option value="javascript">JavaScript</option>
-                    <option value="java">Java</option>
-                    <option value="python">Python</option>
-                    <option value="ruby">Ruby</option>
+                    {
+                      programmingLanguge.map(el => {
+                        return (
+                          <option 
+                            key={el.id}
+                            value={el.judge_code}
+                          >
+                            {el.name}
+                          </option>
+                        )
+                      })
+                    }
                   </select>
                 </div>
 
@@ -216,7 +237,7 @@ const Problem = () => {
         </div>
       </div>
     </div>
-  )
+  );
 }
  
 export default Problem;
