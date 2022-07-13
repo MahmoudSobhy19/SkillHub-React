@@ -10,15 +10,19 @@ import SigninUser from './pages/user/SigninUser';
 import Topics from './pages/user/Topics';
 import Problems from './pages/user/Problems';
 import Problem from './pages/user/Problem';
+import Submittions from './pages/user/Submittions';
+import RoadMap from './pages/user/RoadMap';
+import LeaderBoard from './pages/user/LeaderBoard';
+import Contests from './pages/user/Contests';
+import Jobs from './pages/user/Jobs';
 import SignupCompany from './pages/company/SignupCompany';
 import SigninCompany from './pages/company/SigninCompany';
 import CompanyPage from './pages/company/CompanyPage';
 
+
 function App() {
   const authToken = useRecoilValue(authState);
   const [token, setDecodeToken] = useState("");
-
-  console.log(token);
 
   useEffect(() => {
     if (authToken) {
@@ -63,6 +67,11 @@ function App() {
                 <Route path='/topics' element={<Topics/>}/>
                 <Route path='/problems/:topicId' element={<Problems/>}/>
                 <Route path='/problem/:problemId' element={<Problem/>}/>
+                <Route path='/submittions/:developerId' element={<Submittions/>}/>
+                <Route path='/roadmap/:topicId' element={<RoadMap/>}/>
+                <Route path='/leader-board' element={<LeaderBoard/>}/>
+                <Route path='/contests' element={<Contests/>}/>
+                <Route path='/jobs' element={<Jobs/>}/>
               </>
             )}
             
