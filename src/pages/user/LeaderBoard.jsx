@@ -18,7 +18,6 @@ const LeaderBoard = () => {
       .get("/api/v1/leaderboards")
       .then((Response) => {
         setLeaderBoard(Response.data);
-        console.log(Response.data);
       })
       .catch((err) => {
         toast.error(err.message);

@@ -47,6 +47,7 @@ const Problem = () => {
       .get(`/api/v1/programming_languges`)
       .then((Response)=>{
         setProgrammingLanguge(Response.data);
+        setSelectedLanguge(Response.data[0].id);
       })
       .catch((err) => {
         toast.error(err.message);
@@ -59,7 +60,7 @@ const Problem = () => {
 
   const handleChangeLang = (e) => {
     setSelectedLanguge(e.target.value);
-    var lang = programmingLanguge.filter(el => el.judge_code == e.target.value);
+    var lang = programmingLanguge.filter(el => el.id == e.target.value);
     setEditorLanguge(lang[0].extension);
   };
 
@@ -73,14 +74,14 @@ const Problem = () => {
 
   const handleSubmit = () => {
     axios
-      .post('/api/v1/developers/submissions', {
+      .post('/api/v1/submissions', {
         developer_id: token.id,
         problem_id: param.problemId,
-        programming_language_id: selectedLanguge,
+        programming_languges_id: selectedLanguge,
         source_code: editorRef.current.getValue(),
       })
       .then((Response)=>{
-        console(Response);
+        console.log(Response);
         toast.success("You are Submit Solution, wait for Result");
       })
       .catch((err) => {
@@ -145,7 +146,7 @@ const Problem = () => {
                         return (
                           <option 
                             key={el.id}
-                            value={el.judge_code}
+                            value={el.id}
                           >
                             {el.name}
                           </option>
