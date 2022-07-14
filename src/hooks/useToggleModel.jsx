@@ -7,14 +7,7 @@ const useToggleModal = () => {
     setIsOpen(!isOpen);
   };
 
-  const switchModal = (fn) => {
-    setIsOpen(false);
-    setTimeout(() => {
-      fn();
-    }, 300);
-  };
-
-  return [isOpen, toggleModal, switchModal];
+  return [isOpen, toggleModal];
 };
 
 export default useToggleModal;

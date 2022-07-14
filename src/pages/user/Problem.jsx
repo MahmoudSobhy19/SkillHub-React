@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';  
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from "react-toastify";
 import Navbar from '../../components/Navbar';  
@@ -10,12 +10,13 @@ import { authState } from "../../recoil";
 import { decodeToken } from "react-jwt";
 
 const Problem = () => {
+  const navigate = useNavigate();
+  const param = useParams();
   const authToken = useRecoilValue(authState);
   const [token, setDecodeToken] = useState("");
   const [programmingLanguge, setProgrammingLanguge] = useState([]);
   const [selectedLanguge, setSelectedLanguge] = useState();
   const [editorLanguge, setEditorLanguge] = useState();
-  const param = useParams();
   const [problem, setProblem] = useState([]);
   const [values, setValues] = useState({
     theme: "light",
@@ -81,8 +82,8 @@ const Problem = () => {
         source_code: editorRef.current.getValue(),
       })
       .then((Response)=>{
-        console.log(Response);
         toast.success("You are Submit Solution, wait for Result");
+        navigate(`/submittions/${token.id}`);
       })
       .catch((err) => {
         toast.error(err.message);

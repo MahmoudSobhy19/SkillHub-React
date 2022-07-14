@@ -10,10 +10,12 @@ const SignupCompany = () => {
   const [disabled, setDisabled] = useState(false);
   const formik = useFormik({
     initialValues: {
+      name: "",
       email: "",
       password: "",
     },
     validationSchema: Yup.object({
+      name: Yup.string().required("Required"),
       email: Yup.string().email("Invalid email address").required("Required"),
       password: Yup.string().min(8, "Must be 8 characters or more").required("Required"),
     }),
@@ -31,6 +33,7 @@ const SignupCompany = () => {
     axios
       .post("/companies", {
         company: {
+          name: values.name,
           email: values.email,
           password: values.password,
         }
