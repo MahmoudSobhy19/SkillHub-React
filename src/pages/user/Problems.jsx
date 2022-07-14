@@ -25,7 +25,7 @@ const Problems = () => {
   }, [param.topicId]);
 
   return (
-    <div className="bg-gray-100 min-h-screen pb-10">
+    <div className="bg-gray-200 min-h-screen pb-10">
       <Navbar />
       <div className="container mx-auto px-10">
         <div className="flex justify-between items-center">

@@ -9,7 +9,7 @@ const Contests = () => {
   const [contests, setContests] = useState([]);
 
   return ( 
-    <div className="bg-gray-100 min-h-screen pb-10">
+    <div className="bg-gray-200 min-h-screen pb-10">
       <Navbar />
       <div className="container mx-auto px-10">
         <div className="text-gray-600 text-2xl font-bold border-b-4 py-2 my-2 border-green-600 w-fit">

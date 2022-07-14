@@ -79,18 +79,23 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center gap-2 text-white mt-2">
-          <div className="flex items-center">
-            <FaUser className="text-xl mr-2" />
-            <div className="text-xs font-semibold">{token.username}</div>
-            <div className="mx-2"> | </div>
-          </div>
-          <button
-            className="text-white bg-green-600 px-3 py-[3px] font-bold rounded hover:bg-green-400 focus:outline-none"
-            onClick={handleLogout}
+        <div className="mt-[-10px]">
+          <a 
+            href="/profile"
+            className="flex flex-col md:flex-row items-center gap-2 text-gray-300 mt-2 hover:text-white"
           >
-            Logout
-          </button>
+            <div className="flex items-center">
+              <FaUser className="text-xl mr-2" />
+              <div className="text-xs font-semibold">{token.username}</div>
+              <div className="mx-2"> | </div>
+            </div>
+            <button
+              className="text-white bg-green-600 px-3 py-[3px] font-bold rounded hover:bg-green-400 focus:outline-none"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </a>
         </div>
       </div>
     </nav>

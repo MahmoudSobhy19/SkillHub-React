@@ -21,7 +21,7 @@ const Topics = () => {
   }, []);
 
   return ( 
-    <div className='bg-gray-100 min-h-screen'>
+    <div className='bg-gray-200 min-h-screen'>
       <Navbar/>
       <div className='container mx-auto px-10'>
         <div

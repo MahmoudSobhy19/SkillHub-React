@@ -19,7 +19,7 @@ const Problem = () => {
   const [problem, setProblem] = useState([]);
   const [values, setValues] = useState({
     theme: "light",
-    language: "cpp", // TODO: editorLanguge
+    language: "cpp",
   });
   const [defValue, setValue] = useState("// Start coding . . .");
   const editorRef = useRef(null);
@@ -40,7 +40,7 @@ const Problem = () => {
       .catch((err) => {
         toast.error(err.message);
       });
-  }, []);
+  }, [param.problemId]);
 
   useEffect(() => {
     axios
@@ -59,9 +59,8 @@ const Problem = () => {
 
   const handleChangeLang = (e) => {
     setSelectedLanguge(e.target.value);
-    // var lang = programmingLanguge.filter(el => el.judge_code == e.target.value);
-    // setEditorLanguge(lang[0].value);
-    // console.log(lang[0].value);
+    var lang = programmingLanguge.filter(el => el.judge_code == e.target.value);
+    setEditorLanguge(lang[0].extension);
   };
 
   const handleEditorDidMount = (editor, monaco) => {
@@ -90,7 +89,7 @@ const Problem = () => {
   };
 
   return ( 
-    <div className='bg-gray-100 min-h-screen pb-10'>
+    <div className='bg-gray-200 min-h-screen pb-10'>
       <Navbar/>
       <div className='bg-white mb-4'>
         <h1 className='font-bold container mx-auto px-10 text-xl pt-6 pb-4'>{problem.title}</h1>
@@ -177,9 +176,8 @@ const Problem = () => {
                 <Editor
                   height="400px"
                   defaultLanguage={values.language}
-                  language={values.language}
+                  language={editorLanguge}
                   // [ javascript - ruby - python - c - cpp - java ]
-                  // defaultValue="// Start coding . . ."
                   value={defValue}
                   onMount={handleEditorDidMount}
                   theme={values.theme}

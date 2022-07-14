@@ -18,6 +18,7 @@ import Jobs from './pages/user/Jobs';
 import SignupCompany from './pages/company/SignupCompany';
 import SigninCompany from './pages/company/SigninCompany';
 import CompanyPage from './pages/company/CompanyPage';
+import Profile from './pages/user/Profile';
 
 
 function App() {
@@ -72,6 +73,7 @@ function App() {
                 <Route path='/leader-board' element={<LeaderBoard/>}/>
                 <Route path='/contests' element={<Contests/>}/>
                 <Route path='/jobs' element={<Jobs/>}/>
+                <Route path='/profile' element={<Profile/>}/>
               </>
             )}
             
