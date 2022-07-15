@@ -87,7 +87,7 @@ const Navbar = () => {
                   <li>
                     <NavLink 
                       to='/company-problems'
-                      className={({ isActive }) => isActive ? "border-green-600 border-b-4 pt-3.5 pb-2.5 ml-8" : undefined }
+                      className={({ isActive }) => isActive ? "border-green-600 border-b-4 pt-3.5 pb-2.5" : undefined }
                     >
                       Problems
                     </NavLink>
@@ -95,14 +95,14 @@ const Navbar = () => {
                   <li>
                     <NavLink 
                       className={({ isActive }) => isActive ? "border-green-600 border-b-4 pt-3.5 pb-2.5" : undefined }
-                      to="/contests"
+                      to="/company-contests"
                     >
                       Contests
                     </NavLink>
                   </li>
                   <li>
                     <NavLink 
-                      to="/jobs"
+                      to="/company-jobs"
                       className={({ isActive }) => isActive ? "border-green-600 border-b-4 pt-3.5 pb-2.5" : undefined }
                     >
                       Jobs

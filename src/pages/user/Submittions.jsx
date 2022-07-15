@@ -4,13 +4,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Navbar from "../../components/Navbar";
 import Loader from "../../components/Loader";
-import { Modal } from "../../components/models/Base";
-import useToggleModal from "../../hooks/useToggleModel";
+import ShowCode from "../../components/models/ShowCode";
 
 const Submittions = () => {
   const param = useParams();
   const [submittions, setSubmittions] = useState([]);
-  const [isOpen, toggleModal] = useToggleModal();
 
   useEffect(() => {
     axios
@@ -74,12 +72,10 @@ const Submittions = () => {
                     className="border-b"
                   >
                     <td className="py-4 px-6">
-                      <a
-                        className="font-medium text-blue-600 underline hover:cursor-pointer"
-                        onClick={toggleModal}
-                      >
-                        {el.id}
-                      </a>
+                      <ShowCode 
+                        id={el.id} 
+                        source_code={el.source_code}
+                      />
                     </td>
                     <td className="py-4 px-6 text-xs">{new Date(el.created_at).toLocaleString("en-us")}</td>
                     <td className="py-4 px-6 font-semibold">{el.developer.username}</td>
@@ -95,13 +91,6 @@ const Submittions = () => {
                     <td className="py-4 px-6">{el.status}</td>
                     <td className="py-4 px-6">{el.time_limit + " "} ms</td>
                     <td className="py-4 px-6">{el.memory_limit + " "} KB</td>
-                    <td>
-                      <Modal title="Your Submittion" isOpen={isOpen} handleClose={toggleModal}>
-                        <div className="bg-gray-200 rounded-xl p-6">
-                          {el.source_code}
-                        </div>
-                      </Modal>
-                    </td>
                   </tr>
                 );
               })}

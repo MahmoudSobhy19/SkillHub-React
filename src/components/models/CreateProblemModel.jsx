@@ -9,7 +9,7 @@ import { authState } from "../../recoil";
 import { useRecoilValue } from "recoil";
 import { decodeToken } from "react-jwt";
 
-const CreateProblem = () => {
+const CreateProblem = ({contest_id}) => {
   const [token, setDecodeToken] = useState("");
   const authToken = useRecoilValue(authState);
   const [isOpen, toggleModal] = useToggleModal();
@@ -51,10 +51,10 @@ const CreateProblem = () => {
       topic_id: "",
       contest_id:"",
     },
+    enableReinitialize: true,
     onSubmit: async (values) => {
       try {
         await handleSubmit(values);
-        document.location.reload(true);
       } catch (error) {
         console.log(error);
       }
@@ -78,11 +78,12 @@ const CreateProblem = () => {
         time_limit: values.time_limit,
         company_id: token.id,
         topic_id: values.topic_id,
-        contest_id: ""
+        contest_id: contest_id,
       })
       .then((response) => {
-        toast.success("Problem Added Successfully");
         toggleModal();
+        document.location.reload(true);
+        toast.success("Problem Added Successfully");
         setDisabled(false);
       })
       .catch((err) => {
@@ -112,7 +113,7 @@ const CreateProblem = () => {
                 Problem Name
               </label>
               <input
-                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-50"
+                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
                 type="text"
                 id="title"
                 placeholder="Problem Name"
@@ -128,7 +129,7 @@ const CreateProblem = () => {
                 Problem Body
               </label>
               <input
-                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-50"
+                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
                 type="text"
                 id="body"
                 placeholder="Problem body"
@@ -136,20 +137,26 @@ const CreateProblem = () => {
               />
             </div>
 
-            <div className="w-full mt-2">
-              <label 
-                className="block text-sm font-medium text-gray-600" 
-                htmlFor="difficullty"
+            <div>
+              <label className='font-semibold text-gray-600 mr-1'>Difficullty</label>
+              <select
+                className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-600 focus:border-green-500 focus:ring-green-500 focus:outline-none'
+                name="difficullty"
+                required
+                value={formik.values.difficullty}
+                onChange={(e) => {
+                  formik.setFieldValue("difficullty", e.target.value);
+                }}
               >
-                Difficullty
-              </label>
-              <input
-                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-50"
-                type="text"
-                id="difficullty"
-                placeholder="Problem Difficullty"
-                onChange={formik.handleChange}
-              />
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+              </select>
+              {formik.touched.difficullty && formik.errors.difficullty ? (
+                <div className="text-red-500 ml-4">
+                  {formik.errors.difficullty}
+                </div>
+              ) : null}
             </div>
 
             <div className="w-full mt-2">
@@ -160,7 +167,7 @@ const CreateProblem = () => {
                 Input Description
               </label>
               <input
-                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-50"
+                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
                 type="text"
                 id="input_description"
                 placeholder="Input Description"
@@ -176,7 +183,7 @@ const CreateProblem = () => {
                 Output Description
               </label>
               <input
-                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-50"
+                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
                 type="text"
                 id="output_description"
                 placeholder="Output Description"
@@ -192,7 +199,7 @@ const CreateProblem = () => {
                 Input
               </label>
               <input
-                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-50"
+                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
                 type="text"
                 id="input"
                 placeholder="Input"
@@ -208,7 +215,7 @@ const CreateProblem = () => {
                 Output
               </label>
               <input
-                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-50"
+                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
                 type="text"
                 id="output"
                 placeholder="Output"
@@ -224,7 +231,7 @@ const CreateProblem = () => {
                 Notes
               </label>
               <input
-                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-50"
+                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
                 type="text"
                 id="notes"
                 placeholder="Notes"
@@ -240,7 +247,7 @@ const CreateProblem = () => {
                 Score
               </label>
               <input
-                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-50"
+                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
                 type="text"
                 id="score"
                 placeholder="Score"
@@ -256,7 +263,7 @@ const CreateProblem = () => {
                 Memory Limit
               </label>
               <input
-                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-50"
+                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
                 type="text"
                 id="memory_limit"
                 placeholder="Memory Limit"
@@ -272,7 +279,7 @@ const CreateProblem = () => {
                 Time Limit
               </label>
               <input
-                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-50"
+                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
                 type="text"
                 id="time_limit"
                 placeholder="Time Limit"

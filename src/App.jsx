@@ -19,6 +19,8 @@ import Profile from './pages/user/Profile';
 import SignupCompany from './pages/company/SignupCompany';
 import SigninCompany from './pages/company/SigninCompany';
 import CompanyProblems from './pages/company/Problems';
+import CompanyContests from './pages/company/Contests';
+import CompanyJobs from './pages/company/Jobs';
 
 
 function App() {
@@ -81,6 +83,8 @@ function App() {
               <>
                 {/* Company Routes */}
                 <Route path='/company-problems' element={<CompanyProblems/>}/>
+                <Route path='/company-contests' element={<CompanyContests/>}/>
+                <Route path='/company-jobs' element={<CompanyJobs/>}/>
               </>
             )}
           </Route>

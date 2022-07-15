@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Navbar from "../../components/Navbar";
-import Loader from "../../components/Loader";
 import CreateProblem from "../../components/models/CreateProblemModel";
+import ShowProblemModel from "../../components/models/ShowProblemModel";
 import { authState } from "../../recoil";
 import { useRecoilValue } from "recoil";
 import { decodeToken } from "react-jwt";
@@ -52,8 +52,8 @@ const Problems = () => {
       <div className="container mx-auto px-10">
         <div>
           {problems.length === 0 && (
-            <div className="flex items-center justify-center py-10">
-              <Loader />
+            <div className="flex items-center justify-center py-10 text-gray-600 font-bold">
+              There are no problems, Create problem.
             </div>
           )}
         </div>
@@ -69,9 +69,15 @@ const Problems = () => {
                   <div className="flex justify-center items-center text-white font-bold bg-green-600 rounded-full w-8 h-8 absolute top-[-28px] left-[-28px]">
                     {index+1}
                   </div>
-                  <div className="text-green-600 font-bold mb-4 pt-2">{el.title}</div>
+                  <div>
+                    <ShowProblemModel 
+                      problem={el} 
+                      flag={true} 
+                      index={index + 1}
+                    />
+                  </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4 text-sm mb-2">
+                <div className="grid grid-cols-1 gap-4 text-sm mb-2 md:grid-cols-2">
                   <div className="flex items-center gap-1">
                     <div className="font-bold text-gray-500">Topic : </div>
                     <div className="font-semibold text-gray-700">{el?.topic?.name}</div>
@@ -82,7 +88,7 @@ const Problems = () => {
                     <div className="font-bold text-gray-500">%</div>
                   </div>    
                 </div>
-                <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="grid grid-cols-1 gap-4 text-sm md:grid-cols-2">
                   <div className="flex items-center gap-1">
                     <div className="font-bold text-gray-500">Difficullty : </div>
                     <div className="font-semibold text-gray-700">{el.difficullty}</div>
