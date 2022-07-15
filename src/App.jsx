@@ -15,10 +15,10 @@ import RoadMap from './pages/user/RoadMap';
 import LeaderBoard from './pages/user/LeaderBoard';
 import Contests from './pages/user/Contests';
 import Jobs from './pages/user/Jobs';
+import Profile from './pages/user/Profile';
 import SignupCompany from './pages/company/SignupCompany';
 import SigninCompany from './pages/company/SigninCompany';
-import CompanyPage from './pages/company/CompanyPage';
-import Profile from './pages/user/Profile';
+import CompanyProblems from './pages/company/Problems';
 
 
 function App() {
@@ -40,7 +40,7 @@ function App() {
   const RedirectToApp = () => {
     if (authToken){
       if (token.model === "company"){
-        return <Navigate to="/company-page" />
+        return <Navigate to="/company-problems" />
       }else if (token.model === "developer"){
         return <Navigate to="/topics" />
       }
@@ -80,7 +80,7 @@ function App() {
             {token.model === "company" && (
               <>
                 {/* Company Routes */}
-                <Route path='/company-page' element={<CompanyPage/>}/>
+                <Route path='/company-problems' element={<CompanyProblems/>}/>
               </>
             )}
           </Route>

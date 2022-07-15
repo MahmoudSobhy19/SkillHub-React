@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Navbar from "../../components/Navbar";
 import Loader from "../../components/Loader";
-import {Modal} from "../../components/models/Base";
+import { Modal } from "../../components/models/Base";
 import useToggleModal from "../../hooks/useToggleModel";
 
 const Submittions = () => {

@@ -73,6 +73,26 @@ const SignupCompany = () => {
         <div className="w-full">
           <label 
             className="block text-sm font-medium text-gray-600" 
+            htmlFor="name"
+          >
+            Company Name
+          </label>
+          <input
+            className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50"
+            type="name"
+            id="name"
+            placeholder="SkillHub Company"
+            onChange={formik.handleChange}
+          />
+          {formik.touched.name && formik.errors.name ? (
+            <div className="text-red-500">
+              {formik.errors.name}
+            </div>
+          ) : null}
+        </div>
+        <div className="w-full">
+          <label 
+            className="block text-sm font-medium text-gray-600" 
             htmlFor="email"
           >
             E-mail

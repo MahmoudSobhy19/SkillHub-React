@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { authState } from "../recoil";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { decodeToken } from "react-jwt";
 import { FaUser } from "react-icons/fa";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [token, setDecodeToken] = useState("");
   const authToken = useRecoilValue(authState);
   const setToken = useSetRecoilState(authState);
@@ -20,6 +21,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setToken(null);
+    navigate("/");
   };
 
   return (
@@ -35,67 +37,105 @@ const Navbar = () => {
 
           <div>
             <ul className="flex items-center flex-col md:flex-row gap-3 text-sm font-bold text-white">
-              <li>
-                <NavLink 
-                  to='/topics'
-                  className={({ isActive }) => isActive ? "border-green-600 border-b-4 pt-3.5 pb-2.5" : undefined }
-                >
-                  Practice
-                </NavLink>
-              </li>
-              <li>
-                <NavLink 
-                  className={({ isActive }) => isActive ? "border-green-600 border-b-4 pt-3.5 pb-2.5" : undefined }
-                  to={`/submittions/${token.id}`}
-                >
-                  Submissions
-                </NavLink>
-              </li>
-              <li>
-                <NavLink 
-                  className={({ isActive }) => isActive ? "border-green-600 border-b-4 pt-3.5 pb-2.5" : undefined }
-                  to="/contests"
-                >
-                  Contests
-                </NavLink>
-              </li>
-              <li>
-                <NavLink 
-                  to="/jobs"
-                  className={({ isActive }) => isActive ? "border-green-600 border-b-4 pt-3.5 pb-2.5" : undefined }
-                >
-                  Jobs
-                </NavLink>
-              </li>
-              <li>
-                <NavLink 
-                  to="/leader-board"
-                  className={({ isActive }) => isActive ? "border-green-600 border-b-4 pt-3.5 pb-2.5" : undefined }
-                >
-                  LeaderBoard
-                </NavLink>
-              </li>
+              {token.model === "developer" && (
+                <>
+                  <li>
+                    <NavLink 
+                      to='/topics'
+                      className={({ isActive }) => isActive ? "border-green-600 border-b-4 pt-3.5 pb-2.5" : undefined }
+                    >
+                      Practice
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink 
+                      className={({ isActive }) => isActive ? "border-green-600 border-b-4 pt-3.5 pb-2.5" : undefined }
+                      to={`/submittions/${token.id}`}
+                    >
+                      Submissions
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink 
+                      className={({ isActive }) => isActive ? "border-green-600 border-b-4 pt-3.5 pb-2.5" : undefined }
+                      to="/contests"
+                    >
+                      Contests
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink 
+                      to="/jobs"
+                      className={({ isActive }) => isActive ? "border-green-600 border-b-4 pt-3.5 pb-2.5" : undefined }
+                    >
+                      Jobs
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink 
+                      to="/leader-board"
+                      className={({ isActive }) => isActive ? "border-green-600 border-b-4 pt-3.5 pb-2.5" : undefined }
+                    >
+                      LeaderBoard
+                    </NavLink>
+                  </li>
+                </>
+              )}
+
+              {token.model === "company" && (
+                <>
+                  <li>
+                    <NavLink 
+                      to='/company-problems'
+                      className={({ isActive }) => isActive ? "border-green-600 border-b-4 pt-3.5 pb-2.5 ml-8" : undefined }
+                    >
+                      Problems
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink 
+                      className={({ isActive }) => isActive ? "border-green-600 border-b-4 pt-3.5 pb-2.5" : undefined }
+                      to="/contests"
+                    >
+                      Contests
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink 
+                      to="/jobs"
+                      className={({ isActive }) => isActive ? "border-green-600 border-b-4 pt-3.5 pb-2.5" : undefined }
+                    >
+                      Jobs
+                    </NavLink>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
 
-        <div className="mt-[-10px]">
+        <div className="flex flex-col md:flex-row items-center gap-2 text-gray-300 hover:text-white">
           <a 
             href="/profile"
-            className="flex flex-col md:flex-row items-center gap-2 text-gray-300 mt-2 hover:text-white"
+            
           >
             <div className="flex items-center">
               <FaUser className="text-xl mr-2" />
-              <div className="text-xs font-semibold">{token.username}</div>
+              {token.model === "developer" && (
+                <div className="text-xs font-semibold">{token.username}</div>
+              )}
+              {token.model === "company" && (
+                <div className="text-xs font-semibold">{token.email}</div>
+              )}
               <div className="mx-2"> | </div>
             </div>
-            <button
+          </a>
+          <button
               className="text-white bg-green-600 px-3 py-[3px] font-bold rounded hover:bg-green-400 focus:outline-none"
               onClick={handleLogout}
             >
               Logout
             </button>
-          </a>
         </div>
       </div>
     </nav>
