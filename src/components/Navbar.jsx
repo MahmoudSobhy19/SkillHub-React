@@ -114,7 +114,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center gap-2 text-gray-300 hover:text-white">
+        <div className="flex flex-col md:flex-row items-center gap-2 text-gray-300 hover:text-white pt-4 md:pt-0">
           <a 
             href="/profile"
             
@@ -125,7 +125,7 @@ const Navbar = () => {
                 <div className="text-xs font-semibold">{token.username}</div>
               )}
               {token.model === "company" && (
-                <div className="text-xs font-semibold">{token.email}</div>
+                <div className="text-xs font-semibold">{token.name}</div>
               )}
               <div className="mx-2"> | </div>
             </div>

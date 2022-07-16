@@ -31,7 +31,6 @@ const Contests = () => {
       })
       .then((Response) => {
         setContests(Response.data);
-        console.log(Response.data);
       })
       .catch((err) => {
         toast.err(err.message);

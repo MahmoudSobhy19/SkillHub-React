@@ -5,6 +5,8 @@ import Navbar from "../../components/Navbar";
 import { authState } from "../../recoil";
 import { useRecoilValue } from "recoil";
 import { decodeToken } from "react-jwt";
+import CreateJobModel from "../../components/models/CreateJobModel";
+import ShowAllJobAppModel from "../../components/models/ShowAllJobAppModel";
 
 const Jobs = () => {
   const [token, setDecodeToken] = useState("");
@@ -21,14 +23,13 @@ const Jobs = () => {
   useEffect(() => {
     if(token){
       axios
-      .get("/api/v1/companies/contests", {
+      .get("/api/v1/companies/jobs", {
         params: {
           company_id: token.id,
         },
       })
       .then((Response) => {
         setJobs(Response.data);
-        console.log(Response.data);
       })
       .catch((err) => {
         toast.err(err.message);
@@ -44,7 +45,7 @@ const Jobs = () => {
           <div className="text-gray-600 text-2xl font-bold">
             Jobs
           </div>
-          {/* <CreateProblem /> */}
+          <CreateJobModel />
         </div>
       </div>
       <div className="container mx-auto px-10">
@@ -54,6 +55,47 @@ const Jobs = () => {
               There are no Jobs, Add Job.
             </div>
           )}
+        </div>
+
+        <div>
+          {jobs && jobs.map((el, index) => {
+            return(
+              <div
+              className="bg-white p-6 mb-6 rounded shadow-xl"
+                key={el.id}
+              >
+                <div className="relative">
+                  <div className="flex justify-center items-center text-white font-bold bg-green-600 rounded-full w-8 h-8 absolute top-[-28px] left-[-28px]">
+                    {index+1}
+                  </div>
+
+                  <div>
+                    <ShowAllJobAppModel 
+                      index={index + 1}
+                      job={el}
+                    >
+                    </ShowAllJobAppModel>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex items-center mt-2">
+                    <div className="w-2 h-2 bg-green-600 mr-2"></div>
+                    <div className="font-bold text-gray-500 mr-2">Description</div>
+                  </div>
+                  <div className="font-semibold text-gray-700 ml-4">{el.description}</div>
+                </div>
+
+                <div>
+                  <div className="flex items-center mt-2">
+                    <div className="w-2 h-2 bg-green-600 mr-2"></div>
+                    <div className="font-bold text-gray-500 mr-2">Requirements</div>
+                  </div>
+                  <div className="font-semibold text-gray-700 ml-4">{el.requirements}</div>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
       </div>
