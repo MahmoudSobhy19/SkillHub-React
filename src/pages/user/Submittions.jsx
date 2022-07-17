@@ -19,7 +19,6 @@ const Submittions = () => {
       })
       .then((Response) => {
         setSubmittions(Response.data);
-        console.log(Response.data);
       })
       .catch((err) => {
         toast.error(err.message);

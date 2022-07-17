@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Navbar from "../../components/Navbar";
-import Loader from "../../components/Loader";
 
 const Contests = () => {
   const [contests, setContests] = useState([]);
@@ -18,8 +17,8 @@ const Contests = () => {
 
         <div>
           {contests.length === 0 && (
-            <div className="flex items-center justify-center py-10">
-              <Loader />
+            <div className="flex items-center justify-center py-10 text-gray-600 font-bold">
+              There are no Contests.
             </div>
           )}
         </div>

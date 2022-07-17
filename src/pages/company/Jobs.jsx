@@ -73,8 +73,7 @@ const Jobs = () => {
                     <ShowAllJobAppModel 
                       index={index + 1}
                       job={el}
-                    >
-                    </ShowAllJobAppModel>
+                    />
                   </div>
                 </div>
 

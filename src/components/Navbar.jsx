@@ -114,7 +114,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center gap-2 text-gray-300 hover:text-white pt-4 md:pt-0">
+        <div className="flex flex-col md:flex-row items-center gap-2 text-gray-300 hover:text-white pt-2 md:pt-0">
           <a 
             href="/profile"
             
