@@ -18,7 +18,6 @@ const RoadMap = () => {
       })
       .then((Response) => {
         setRoadMap(Response.data);
-        console.log(Response.data);
       })
       .catch((err) => {
         toast.error(err.message);
@@ -26,7 +25,7 @@ const RoadMap = () => {
   }, [param.topicId]);
 
   return ( 
-    <div className="bg-gray-100 min-h-screen pb-10">
+    <div className="bg-gray-200 min-h-screen pb-10">
       <Navbar />
       <div className="container mx-auto px-10">
         <div className="text-gray-600 text-2xl font-bold border-b-4 py-2 my-2 border-green-600 w-fit">
@@ -47,7 +46,7 @@ const RoadMap = () => {
               {roadMap.description}
             </div>
 
-            <div className="grid grid-cols-3 gap-4 mt-6">
+            <div className="grid grid-cols-3 gap-8 mt-6">
               <div className="border-l-2 border-green-500">
                 <div className="text-green-600 font-normal text-3xl pl-6 pb-2 capitalize">
                   {roadMap?.levels[0]?.title}
@@ -55,19 +54,19 @@ const RoadMap = () => {
                 <div>
                   {roadMap?.levels[0]?.resources.map((el, index)=> {
                     return (
-                      <div key={el.id} className="bg-white w-fit rounded-xl mb-6">
-                        <div className="flex">
+                      <div key={el.id} className="bg-white rounded-xl mb-6">
+                        <div className="relative mb-2">
                           <a href={el.url} target="blank">
-                            <div className="bg-green-500 text-white font-bold px-10 py-1">
+                            <div className="bg-green-500 text-white font-bold px-10 py-1 mr-[6px]">
                               {el.title}
                             </div>
                           </a>
-                          <div className="flex justify-center items-center text-white font-bold bg-green-600 rounded-full w-12 h-12 mt-[-9px] ml-[-6px]">
+                          <div className="flex justify-center items-center text-white font-bold bg-green-600 rounded-full w-12 h-12 mt-[-9px] ml-[-6px] absolute top-0 right-0">
                             {index+1}
                           </div>
                         </div>
 
-                        <div className="flex items-center mb-4">
+                        <div className="flex items-center mb-4 pb-2">
                           <div className="w-2 h-2 rounded-full bg-green-600 mx-2"></div>
                           <div className="text-gray-600">{"Time : " + el.estimated_time + " Hours"}</div>
                         </div>
@@ -84,19 +83,19 @@ const RoadMap = () => {
                 <div>
                   {roadMap?.levels[1]?.resources.map((el, index)=> {
                     return (
-                      <div key={el.id} className="bg-white w-fit rounded-xl mb-6">
-                        <div className="flex">
+                      <div key={el.id} className="bg-white rounded-xl mb-6">
+                        <div className="relative mb-2">
                           <a href={el.url} target="blank">
-                            <div className="bg-orange-400 text-white font-bold px-10 py-1">
+                            <div className="bg-orange-400 text-white font-bold px-10 py-1 mr-[6px]">
                               {el.title}
                             </div>
                           </a>
-                          <div className="flex justify-center items-center text-white font-bold bg-orange-500 rounded-full w-12 h-12 mt-[-9px] ml-[-6px]">
+                          <div className="flex justify-center items-center text-white font-bold bg-orange-500 rounded-full w-12 h-12 mt-[-9px] ml-[-6px] absolute top-0 right-0">
                             {index+1}
                           </div>
                         </div>
 
-                        <div className="flex items-center mb-4">
+                        <div className="flex items-center mb-4 pb-2">
                           <div className="w-2 h-2 rounded-full bg-orange-500 mx-2"></div>
                           <div className="text-gray-600">{"Time : " + el.estimated_time + " Hours"}</div>
                         </div>
@@ -113,19 +112,19 @@ const RoadMap = () => {
                 <div>
                   {roadMap?.levels[2]?.resources.map((el, index)=> {
                     return (
-                      <div key={el.id} className="bg-white w-fit rounded-xl mb-6">
-                        <div className="flex">
+                      <div key={el.id} className="bg-white rounded-xl mb-6">
+                        <div className="relative mb-2">
                           <a href={el.url} target="blank">
-                            <div className="bg-red-500 text-white font-bold px-10 py-1">
+                            <div className="bg-red-500 text-white font-bold px-10 py-1 mr-[6px]">
                               {el.title}
                             </div>
                           </a>
-                          <div className="flex justify-center items-center text-white font-bold bg-red-600 rounded-full w-12 h-12 mt-[-9px] ml-[-6px]">
+                          <div className="flex justify-center items-center text-white font-bold bg-red-600 rounded-full w-12 h-12 mt-[-9px] ml-[-6px] absolute top-0 right-0">
                             {index+1}
                           </div>
                         </div>
 
-                        <div className="flex items-center mb-4">
+                        <div className="flex items-center mb-4 pb-2">
                           <div className="w-2 h-2 rounded-full bg-red-600 mx-2"></div>
                           <div className="text-gray-600">{"Time : " + el.estimated_time + " Hours"}</div>
                         </div>

@@ -15,9 +15,12 @@ import RoadMap from './pages/user/RoadMap';
 import LeaderBoard from './pages/user/LeaderBoard';
 import Contests from './pages/user/Contests';
 import Jobs from './pages/user/Jobs';
+import Profile from './pages/user/Profile';
 import SignupCompany from './pages/company/SignupCompany';
 import SigninCompany from './pages/company/SigninCompany';
-import CompanyPage from './pages/company/CompanyPage';
+import CompanyProblems from './pages/company/Problems';
+import CompanyContests from './pages/company/Contests';
+import CompanyJobs from './pages/company/Jobs';
 
 
 function App() {
@@ -39,7 +42,7 @@ function App() {
   const RedirectToApp = () => {
     if (authToken){
       if (token.model === "company"){
-        return <Navigate to="/company-page" />
+        return <Navigate to="/company-problems" />
       }else if (token.model === "developer"){
         return <Navigate to="/topics" />
       }
@@ -72,13 +75,16 @@ function App() {
                 <Route path='/leader-board' element={<LeaderBoard/>}/>
                 <Route path='/contests' element={<Contests/>}/>
                 <Route path='/jobs' element={<Jobs/>}/>
+                <Route path='/profile' element={<Profile/>}/>
               </>
             )}
             
             {token.model === "company" && (
               <>
                 {/* Company Routes */}
-                <Route path='/company-page' element={<CompanyPage/>}/>
+                <Route path='/company-problems' element={<CompanyProblems/>}/>
+                <Route path='/company-contests' element={<CompanyContests/>}/>
+                <Route path='/company-jobs' element={<CompanyJobs/>}/>
               </>
             )}
           </Route>

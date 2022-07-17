@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';  
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from "react-toastify";
 import Navbar from '../../components/Navbar';  
@@ -10,16 +10,17 @@ import { authState } from "../../recoil";
 import { decodeToken } from "react-jwt";
 
 const Problem = () => {
+  const navigate = useNavigate();
+  const param = useParams();
   const authToken = useRecoilValue(authState);
   const [token, setDecodeToken] = useState("");
   const [programmingLanguge, setProgrammingLanguge] = useState([]);
   const [selectedLanguge, setSelectedLanguge] = useState();
   const [editorLanguge, setEditorLanguge] = useState();
-  const param = useParams();
   const [problem, setProblem] = useState([]);
   const [values, setValues] = useState({
     theme: "light",
-    language: "cpp", // TODO: editorLanguge
+    language: "cpp",
   });
   const [defValue, setValue] = useState("// Start coding . . .");
   const editorRef = useRef(null);
@@ -40,13 +41,14 @@ const Problem = () => {
       .catch((err) => {
         toast.error(err.message);
       });
-  }, []);
+  }, [param.problemId]);
 
   useEffect(() => {
     axios
       .get(`/api/v1/programming_languges`)
       .then((Response)=>{
         setProgrammingLanguge(Response.data);
+        setSelectedLanguge(Response.data[0].id);
       })
       .catch((err) => {
         toast.error(err.message);
@@ -59,9 +61,8 @@ const Problem = () => {
 
   const handleChangeLang = (e) => {
     setSelectedLanguge(e.target.value);
-    // var lang = programmingLanguge.filter(el => el.judge_code == e.target.value);
-    // setEditorLanguge(lang[0].value);
-    // console.log(lang[0].value);
+    var lang = programmingLanguge.filter(el => el.id == e.target.value);
+    setEditorLanguge(lang[0].extension);
   };
 
   const handleEditorDidMount = (editor, monaco) => {
@@ -74,15 +75,15 @@ const Problem = () => {
 
   const handleSubmit = () => {
     axios
-      .post('/api/v1/developers/submissions', {
+      .post('/api/v1/submissions', {
         developer_id: token.id,
         problem_id: param.problemId,
-        programming_language_id: selectedLanguge,
+        programming_languges_id: selectedLanguge,
         source_code: editorRef.current.getValue(),
       })
       .then((Response)=>{
-        console(Response);
         toast.success("You are Submit Solution, wait for Result");
+        navigate(`/submittions/${token.id}`);
       })
       .catch((err) => {
         toast.error(err.message);
@@ -90,7 +91,7 @@ const Problem = () => {
   };
 
   return ( 
-    <div className='bg-gray-100 min-h-screen pb-10'>
+    <div className='bg-gray-200 min-h-screen pb-10'>
       <Navbar/>
       <div className='bg-white mb-4'>
         <h1 className='font-bold container mx-auto px-10 text-xl pt-6 pb-4'>{problem.title}</h1>
@@ -146,7 +147,7 @@ const Problem = () => {
                         return (
                           <option 
                             key={el.id}
-                            value={el.judge_code}
+                            value={el.id}
                           >
                             {el.name}
                           </option>
@@ -172,14 +173,13 @@ const Problem = () => {
                     <option value="vs-dark">Dark</option>
                   </select>
                 </div>
-                </div>
+              </div>
               <div className='shadow-xl mt-4 mb-8'>
                 <Editor
                   height="400px"
                   defaultLanguage={values.language}
-                  language={values.language}
+                  language={editorLanguge}
                   // [ javascript - ruby - python - c - cpp - java ]
-                  // defaultValue="// Start coding . . ."
                   value={defValue}
                   onMount={handleEditorDidMount}
                   theme={values.theme}
@@ -212,7 +212,7 @@ const Problem = () => {
 
             <div className='flex gap-1 mb-4'>
               <h3 className='text-gray-600 font-semibold'>Score : </h3>
-              <p className='text-green-600 font-semibold'>100</p>
+              <p className='text-green-600 font-semibold'>{problem?.score}</p>
               <h3 className='text-gray-600 font-semibold'>Points</h3>
             </div>
 
