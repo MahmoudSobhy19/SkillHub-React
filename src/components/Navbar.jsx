@@ -29,9 +29,9 @@ const Navbar = () => {
       <div className="container mx-auto px-10 h-12 flex flex-col md:flex-row justify-between items-center">
         <div className="flex items-center flex-col md:flex-row">
           <div className="flex items-center mr-6">
-            <a href="/topics" className="text-white text-2xl font-bold">
+            <h1 className="text-white text-2xl font-bold">
               SkillHub
-            </a>
+            </h1>
             <span className="w-4 h-6 ml-1 bg-green-600 block"></span>
           </div>
 

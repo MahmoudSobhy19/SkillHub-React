@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Navbar from "../../components/Navbar";
-import Loader from "../../components/Loader";
 import ApplyJobModel from "../../components/models/ApplyJobModel";
 
 const Jobs = () => {

@@ -62,7 +62,7 @@ const Problems = () => {
           {problems && problems.map((el, index) => {
             return(
               <div
-              className="bg-white p-6 mb-6 rounded shadow-xl"
+                className="bg-white p-6 mb-6 rounded shadow-xl"
                 key={el.id}
               >
                 <div className="relative">

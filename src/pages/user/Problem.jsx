@@ -173,7 +173,7 @@ const Problem = () => {
                     <option value="vs-dark">Dark</option>
                   </select>
                 </div>
-                </div>
+              </div>
               <div className='shadow-xl mt-4 mb-8'>
                 <Editor
                   height="400px"
@@ -212,7 +212,7 @@ const Problem = () => {
 
             <div className='flex gap-1 mb-4'>
               <h3 className='text-gray-600 font-semibold'>Score : </h3>
-              <p className='text-green-600 font-semibold'>100</p>
+              <p className='text-green-600 font-semibold'>{problem?.score}</p>
               <h3 className='text-gray-600 font-semibold'>Points</h3>
             </div>
 
