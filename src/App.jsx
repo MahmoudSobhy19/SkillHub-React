@@ -21,6 +21,8 @@ import SigninCompany from './pages/company/SigninCompany';
 import CompanyProblems from './pages/company/Problems';
 import CompanyContests from './pages/company/Contests';
 import CompanyJobs from './pages/company/Jobs';
+import CompanyProfile from './pages/company/Profile';
+
 
 
 function App() {
@@ -85,6 +87,7 @@ function App() {
                 <Route path='/company-problems' element={<CompanyProblems/>}/>
                 <Route path='/company-contests' element={<CompanyContests/>}/>
                 <Route path='/company-jobs' element={<CompanyJobs/>}/>
+                <Route path='/company-profile' element={<CompanyProfile/>}/>
               </>
             )}
           </Route>
