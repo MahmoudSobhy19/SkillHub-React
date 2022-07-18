@@ -116,8 +116,7 @@ const Navbar = () => {
 
         <div className="flex flex-col md:flex-row items-center gap-2 text-gray-300 hover:text-white pt-2 md:pt-0">
           <a 
-            href="/profile"
-            
+            href={token.model === "developer" ? "/profile" : "/company-profile"}
           >
             <div className="flex items-center">
               <FaUser className="text-xl mr-2" />
