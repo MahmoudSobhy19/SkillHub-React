@@ -22,6 +22,7 @@ import CompanyProblems from './pages/company/Problems';
 import CompanyContests from './pages/company/Contests';
 import CompanyJobs from './pages/company/Jobs';
 import CompanyProfile from './pages/company/Profile';
+import ContestProblems from './pages/user/ContestProblems';
 
 
 
@@ -76,6 +77,7 @@ function App() {
                 <Route path='/roadmap/:topicId' element={<RoadMap/>}/>
                 <Route path='/leader-board' element={<LeaderBoard/>}/>
                 <Route path='/contests' element={<Contests/>}/>
+                <Route path='/contest-problems/:contestId' element={<ContestProblems/>}/>
                 <Route path='/jobs' element={<Jobs/>}/>
                 <Route path='/profile' element={<Profile/>}/>
               </>
