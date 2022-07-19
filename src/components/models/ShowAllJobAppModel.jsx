@@ -86,6 +86,16 @@ const ShowAllJobAppModel = ({job, index}) => {
                         <div className="text-green-600 font-medium text-sm mt-1">at</div>
                         <div className="text-gray-600 font-medium text-sm mt-1">{el.developer_work_at}</div>
                       </div>
+
+                      <div className="flex items-center gap-x-1 ml-[24px] mt-2">
+                        <a
+                          className="text-green-600 font-medium underline text-sm"
+                          href="https://drive.google.com/file/d/1I0b70wskEDYhWIPqkU4wi_D7tyrJgQfU/view?usp=sharing"
+                          target="blank"
+                        >
+                          CV Link
+                        </a>
+                      </div>
                     </div>
                   );
                 })}

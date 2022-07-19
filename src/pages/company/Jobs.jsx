@@ -20,6 +20,18 @@ const Jobs = () => {
     }
   }, [authToken]);
 
+  const handelDelete = (job_id) => {
+    axios
+      .delete(`/api/v1/companies/jobs/${job_id}`)
+      .then((Response)=>{
+        document.location.reload(true);
+        toast.success("Job Delete Successfully")
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  };
+
   useEffect(() => {
     if(token){
       axios
@@ -64,7 +76,7 @@ const Jobs = () => {
               className="bg-white p-6 mb-6 rounded shadow-xl"
                 key={el.id}
               >
-                <div className="relative">
+                <div className="relative flex justify-between">
                   <div className="flex justify-center items-center text-white font-bold bg-green-600 rounded-full w-8 h-8 absolute top-[-28px] left-[-28px]">
                     {index+1}
                   </div>
@@ -74,6 +86,15 @@ const Jobs = () => {
                       index={index + 1}
                       job={el}
                     />
+                  </div>
+                  <div>
+                    <button 
+                      className="text-red-500 bg-white border-solid border-2 border-red-600 font-semibold px-2 py-1 rounded hover:text-red-300 hover:border-red-300 focus:outline-none"
+                      type="submit" 
+                      onClick={() => handelDelete(el.id)}
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
 

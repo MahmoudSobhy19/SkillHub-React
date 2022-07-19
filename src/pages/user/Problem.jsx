@@ -18,6 +18,7 @@ const Problem = () => {
   const [selectedLanguge, setSelectedLanguge] = useState();
   const [editorLanguge, setEditorLanguge] = useState();
   const [problem, setProblem] = useState([]);
+  const [similar, setSimilar] = useState([]);
   const [values, setValues] = useState({
     theme: "light",
     language: "cpp",
@@ -54,6 +55,20 @@ const Problem = () => {
         toast.error(err.message);
       });
   }, []);
+
+  useEffect(() => {
+    if(problem){
+      axios
+        .get(`/api/v1/problems/recommended_problems`)
+        .then((Response)=>{
+          setSimilar(Response.data);
+          console.log(Response.data);
+        })
+        .catch((err) => {
+          toast.error(err.message);
+        });
+    }
+  }, [problem]);
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value});
@@ -202,37 +217,58 @@ const Problem = () => {
             </div>
           </div>
 
-          <div className='w-1/4 ml-12 bg-white px-6 py-4 shadow-2xl h-fit'>
-            <h1 className='text-xl font-bold mb-5 text-center'>Details</h1>
+          <div className='flex flex-col gap-y-8 w-1/4'>
+            <div className='ml-12 bg-white px-6 py-4 shadow-2xl h-fit'>
+              <h1 className='text-xl font-bold mb-5 text-center'>Details</h1>
 
-            <div className='flex gap-1 mt-2 mb-4'>
-              <h3 className='text-gray-600 font-semibold'>Topic :</h3>
-              <p className='text-green-600 font-semibold'>{problem?.topic?.name}</p>
+              <div className='flex gap-1 mt-2 mb-4'>
+                <h3 className='text-gray-600 font-semibold'>Topic :</h3>
+                <p className='text-green-600 font-semibold'>{problem?.topic?.name}</p>
+              </div>
+
+              <div className='flex gap-1 mb-4'>
+                <h3 className='text-gray-600 font-semibold'>Score : </h3>
+                <p className='text-green-600 font-semibold'>{problem?.score}</p>
+                <h3 className='text-gray-600 font-semibold'>Points</h3>
+              </div>
+
+              <div className='flex gap-1 mb-4'>
+                <h3 className='text-gray-600 font-semibold'>Time Limit : </h3>
+                <p className='text-green-600 font-semibold'>{problem?.time_limit}</p>
+                <h3 className='text-gray-600 font-semibold'> ms</h3>
+              </div>
+
+              <div className='flex gap-1 mb-4'>
+                <h3 className='text-gray-600 font-semibold'>Memory Limit : </h3>
+                <p className='text-green-600 font-semibold'>{problem?.memory_limit}</p>
+                <h3 className='text-gray-600 font-semibold'> kb</h3>
+              </div>
+
+              <div className='flex gap-1 mb-4'>
+                <h3 className='text-gray-600 font-semibold'>Difficullty : </h3>
+                <p className='text-green-600 font-semibold'>{problem?.difficullty}</p>
+              </div>
             </div>
 
-            <div className='flex gap-1 mb-4'>
-              <h3 className='text-gray-600 font-semibold'>Score : </h3>
-              <p className='text-green-600 font-semibold'>{problem?.score}</p>
-              <h3 className='text-gray-600 font-semibold'>Points</h3>
-            </div>
+            <div className='ml-12 bg-white px-6 py-4 shadow-2xl h-fit'>
+              <h1 className='font-bold mb-5 text-center'>Similar Problems</h1>
 
-            <div className='flex gap-1 mb-4'>
-              <h3 className='text-gray-600 font-semibold'>Time Limit : </h3>
-              <p className='text-green-600 font-semibold'>{problem?.time_limit}</p>
-              <h3 className='text-gray-600 font-semibold'> ms</h3>
-            </div>
+              <div className='flex flex-col gap-1 mt-2 mb-4'>
+                {similar && similar.map(el => {
+                  return(
+                    <a 
+                      key={el.id}
+                      href={`/problem/${el.id}`}
+                      className="flex items-center mt-2 hover:cursor-pointer"
+                    >
+                      <div className="w-2 h-2 bg-green-600 mr-2"></div>
+                      <div className="font-semibold text-sm text-gray-500 mr-2">{el.title}</div>
+                    </a>
+                  );
+                })}
+              </div>
 
-            <div className='flex gap-1 mb-4'>
-              <h3 className='text-gray-600 font-semibold'>Memory Limit : </h3>
-              <p className='text-green-600 font-semibold'>{problem?.memory_limit}</p>
-              <h3 className='text-gray-600 font-semibold'> kb</h3>
             </div>
-
-            <div className='flex gap-1 mb-4'>
-              <h3 className='text-gray-600 font-semibold'>Difficullty : </h3>
-              <p className='text-green-600 font-semibold'>{problem?.difficullty}</p>
-            </div>
-
           </div>
         </div>
       </div>

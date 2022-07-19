@@ -12,6 +12,7 @@ const ApplyJobModel = ({job, index}) => {
   const [isOpen, toggleModal] = useToggleModal();
   const authToken = useRecoilValue(authState);
   const [token, setDecodeToken] = useState("");
+  const [file, setFile] = useState([]);
 
   useEffect(() => {
     if (authToken) {
@@ -19,6 +20,10 @@ const ApplyJobModel = ({job, index}) => {
     setDecodeToken(decode);
     }
   }, [authToken]);
+
+  const handleUpload = (e) => {
+    setFile(e.target.files);
+  };
 
   const handelApply = () => {
     setDisabled(true);
@@ -63,7 +68,6 @@ const ApplyJobModel = ({job, index}) => {
               </div>
               <div 
                 className="text-green-600 font-bold mb-2 pt-2 ml-2"
-                onClick={toggleModal}
               >
                 {job.title}
               </div>
@@ -83,6 +87,17 @@ const ApplyJobModel = ({job, index}) => {
                 <div className="font-bold text-gray-500 mr-2">Requirements</div>
               </div>
               <div className="text-sm font-medium text-gray-700 ml-4">{job.requirements}</div>
+            </div>
+
+            <div className="w-full my-4 ml-4">
+              <input
+                className="block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50"
+                type="file"
+                name="images"
+                required
+                multiple
+                onChange={handleUpload}
+            />
             </div>
             
           </div>

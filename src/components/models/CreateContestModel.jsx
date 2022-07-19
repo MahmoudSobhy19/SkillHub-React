@@ -180,7 +180,7 @@ const CreateContestModel = () => {
                 End Time
               </label>
               <input
-                className=" block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50"
+                className="block w-full rounded-lg border p-2.5 text-sm  focus:bg-white focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50"
                 type="datetime-local"
                 id="end_at"
                 placeholder="End Time"
